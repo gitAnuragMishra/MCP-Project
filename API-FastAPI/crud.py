@@ -19,15 +19,7 @@ def get_connection():
         "Encrypt=yes;"
         "TrustServerCertificate=yes;"
     )
-#     conn_str = (
-#         "DRIVER={ODBC Driver 18 for SQL Server};"
-#         "SERVER=mcp-testdb.cxmsggugapv2.ap-south-1.rds.amazonaws.com,1433;"
-#         "DATABASE=MCP-test-db;"
-#         "UID=admin;"
-#         "PWD=hasyu234h2b34uh23hasbhub;"
-#         "Encrypt=yes;"
-#         "TrustServerCertificate=yes;"
-#     )
+
     # Connect
     conn = pyodbc.connect(conn_str)
     return conn
