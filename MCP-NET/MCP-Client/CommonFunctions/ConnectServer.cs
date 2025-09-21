@@ -20,6 +20,7 @@ namespace MCP_Client.Mcp_Helper
         public async Task<McpRootModel> PrepareRequestBody(string userPrompt)
         {
             var functions = await _client.GetFunctionsAsync();
+            var tools = await _client.GetToolsAsync();
 
             var catalog = new
             {
@@ -33,8 +34,7 @@ namespace MCP_Client.Mcp_Helper
                 }
             };
 
-            var jsonOpts = new JsonSerializerOptions { WriteIndented = true };
-            string functionCatalog = JsonSerializer.Serialize(catalog, jsonOpts);
+            string functionCatalog = JsonHelper.Serialize(catalog);
 
             string prompt = @$"
                                 CATALOG:
@@ -65,16 +65,19 @@ namespace MCP_Client.Mcp_Helper
         {
             var requestBody = await PrepareRequestBody(userPrompt);
 
+            var param = requestBody.Mcp.Function.Parameters.ToDictionary(p => p.Name, p => p.Value);
+
             var result = await _client.CallToolAsync(
                                     name: requestBody.Mcp.Function.Name,
                                     parameters: requestBody.Mcp.Function.Parameters.ToDictionary(p => p.Name, p => p.Value));
 
             var serverResponse = result != null ? result.Content[0].Text : "MCP server didn't respond";
 
+            string responseBody = string.Empty;
             /// Need to decide if we want to use the LLM to format the response or just return raw
-            //var responseBody = await PrepareResponseBody(userPrompt, serverResponse);
+            responseBody = await PrepareResponseBody(userPrompt, serverResponse);
 
-            return serverResponse;
+            return responseBody == string.Empty ? serverResponse : responseBody;
         }
     } 
 }

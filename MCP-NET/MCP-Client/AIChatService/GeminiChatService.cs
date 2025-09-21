@@ -14,7 +14,6 @@ namespace AIChatService
         {
             _httpClient = httpClient;
             _config = config;
-
             _httpClient.BaseAddress = new Uri("https://generativelanguage.googleapis.com/v1beta/");
         }
 
@@ -31,7 +30,7 @@ namespace AIChatService
                         parts = new[]
                         {
                             new { text = processMCPcatalog == MessageType.MCPRequest ? userMessage + "\n" + MCPListingPrompt : 
-                                         processMCPcatalog == MessageType.MCPResponse ? userMessage + "\n" + mcpReponse + "\n" + MCPResponsePrompt : 
+                                         processMCPcatalog == MessageType.MCPResponse ? "The USER query asked: " + userMessage + ". The RESPONSE: " + mcpReponse + ". " + MCPResponsePrompt : 
                                          userMessage}
                         }
                     }
@@ -73,7 +72,7 @@ namespace AIChatService
                                         ""function"": {
                                           ""name"": ""<one function name from the catalog>"",
                                           ""parameters"": [
-                                            { ""name"": ""<paramNameFromCatalog>"", ""value"": <JSON value or null> }
+                                            { ""name"": ""<paramNameFromCatalog>"", ""Value"": <JSON value or null> }
                                           ]
                                         }
                                       }
@@ -86,22 +85,30 @@ namespace AIChatService
                                     - If nothing matches, return {""mcp"":{""function"":{""name"":""none"",""parameters"":[]}}}
                                     - NEVER include keys other than: mcp, function, name, parameters, name, value.
                                     - NEVER include the word ""Catalog"" or repeat the catalog content in your output.
+                                    - If the parameter description say exactly PARAMETERLESS, then set ""value"": 1.
                                     JSON_ONLY_START
                                ";
 
         private string MCPResponsePrompt = @"
-                                 You are a helpful assistant. Use the information provided to answer the user.
-                                    Task:
-                                    1) Read the USER REQUEST and the FUNCTION RESPONSE.
-                                    2) Provide a concise, clear answer to the user based on the FUNCTION RESPONSE.
+                                 You are a helpful assistant responding to a user's question. You are given:
+                                    - The USER REQUEST (what they asked).
+                                    - The RESPONSE (the structured output generated from a system function).
+
+                                    Your job is to combine both into a natural, friendly response that directly helps the user.
+
+                                    Instructions:
+                                    1) Read and understand the USER REQUEST.
+                                    2) Interpret the FUNCTION RESPONSE.
+                                    3) Write a short, clear, and friendly answer that feels natural — like a real human helping.
+
                                     Output constraints (MUST follow exactly):
-                                    - Output ONLY text that directly answers the USER REQUEST.
-                                    - Do NOT include any JSON or technical details.
-                                    - If the FUNCTION RESPONSE indicates an error or no data, respond with ""I'm sorry, I couldn't find any relevant information.""
-                                    Rules:
-                                    - Focus on clarity and relevance in your response.
-                                    - Avoid repeating the USER REQUEST in your answer.
-                                    - If the FUNCTION RESPONSE is empty or unhelpful, use the fallback response provided above.
-                               ";
+                                    - ONLY output the final response to the user. No JSON, no code, no system explanations.
+
+                                    Tone and Style:
+                                    - Be polite, helpful, and conversational.
+                                    - Avoid repeating the full USER REQUEST or FUNCTION RESPONSE.
+                                    - If numerical or specific data is available, summarize it clearly.
+                                    - Don't make assumptions beyond the given information.
+                                    ";
     }
 }

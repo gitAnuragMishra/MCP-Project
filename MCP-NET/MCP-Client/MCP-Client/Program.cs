@@ -10,12 +10,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 var config = builder.Configuration.GetSection("APIKeys").Get<GeminiChatConfig>() ?? new GeminiChatConfig();
 config.GeminiChatModel = builder.Configuration["GeminiChatModel"];
 builder.Services.AddSingleton(config);
 builder.Services.AddHttpClient<GeminiChatService>();
 builder.Services.AddScoped<ConnectServer>();
-
 
 var mcpClient = new MCPClient(
    name: "McpClient",

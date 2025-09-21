@@ -27,7 +27,7 @@ namespace ViewModels
         [JsonPropertyName("name")]
         public string Name { get; set; }
 
-        [JsonPropertyName("value")]
+        [JsonPropertyName("Value")]
         public object Value { get; set; }
     }
 }

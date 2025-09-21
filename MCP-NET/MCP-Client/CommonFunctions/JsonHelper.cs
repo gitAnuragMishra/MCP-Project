@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using System.Text.Json;
 
 namespace CommonFunctions
 {
@@ -33,6 +34,14 @@ namespace CommonFunctions
             }
 
             return sb.ToString();
+        }
+
+        public static string Serialize<T>(T model)
+        {
+            var jsonOpts = new JsonSerializerOptions { WriteIndented = true };
+            string result = JsonSerializer.Serialize(model, jsonOpts);
+
+            return result;
         }
     }
 }
