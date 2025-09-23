@@ -10,3 +10,12 @@ Actual FastAPI appsettings.json file is hidden for security reasons, but here is
     }
 }
 ```
+
+
+## Release Pattern:
+
+v1.0.0: Basic working POC
+
+v1.1.0: Remote MCP-Server with WithHttpTransport()
+
+v1.1.1: Added more tools; accessible from VS Code

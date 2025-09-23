@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModels", "ViewModels\Vi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonFunctions", "CommonFunctions\CommonFunctions.csproj", "{18AAF203-DAA9-4052-9C84-139D7594BC38}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MCP-Client-Web", "MCP-Client-Web\MCP-Client-Web.csproj", "{D946F337-7E1C-4FD8-B9DD-D7B805A37EA4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{18AAF203-DAA9-4052-9C84-139D7594BC38}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18AAF203-DAA9-4052-9C84-139D7594BC38}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18AAF203-DAA9-4052-9C84-139D7594BC38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D946F337-7E1C-4FD8-B9DD-D7B805A37EA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D946F337-7E1C-4FD8-B9DD-D7B805A37EA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D946F337-7E1C-4FD8-B9DD-D7B805A37EA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D946F337-7E1C-4FD8-B9DD-D7B805A37EA4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
