@@ -1,5 +1,4 @@
 using System.ComponentModel;
-using System.Security.Cryptography.X509Certificates;
 using ModelContextProtocol.Server;
 
 internal class Program
@@ -13,10 +12,9 @@ internal class Program
             .WithHttpTransport()
             .WithToolsFromAssembly();
 
-        builder.Services.AddControllers();
-        // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-        builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
+        //builder.Services.AddControllers();
+        //builder.Services.AddEndpointsApiExplorer();
+        //builder.Services.AddSwaggerGen();
 
 
         /// try to use DI here
@@ -24,29 +22,24 @@ internal class Program
         var serviceProvider = services.BuildServiceProvider();
         ServiceLocator.ServiceProvider = serviceProvider;
 
-
-
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
-        if (app.Environment.IsDevelopment())
-        {
-            app.UseSwagger();
-            app.UseSwaggerUI();
-        }
+        //if (app.Environment.IsDevelopment())
+        //{
+        //    app.UseSwagger();
+        //    app.UseSwaggerUI();
+        //}
 
-        app.UseHttpsRedirection();
+        //app.UseHttpsRedirection();
 
-        app.UseAuthorization();
+        //app.UseAuthorization();
 
-        app.MapControllers();
+        //app.MapControllers();
 
-        app.MapMcp();
+        app.MapMcp("/mcp");
 
         app.Run();
-
-
-        
     }
 
     public static class ServiceLocator

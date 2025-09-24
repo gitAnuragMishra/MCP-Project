@@ -77,7 +77,7 @@ namespace Tools
 
         [McpServerTool, Description("Deletes a product by its ID")]
         public async Task<string> DeleteProduct(
-            [Description("Quantity to add")] int productId)
+            [Description("Product ID")] int productId)
         {
             string url = _baseURL + $"products/{productId}";
             var headers = new Dictionary<string, string>();
